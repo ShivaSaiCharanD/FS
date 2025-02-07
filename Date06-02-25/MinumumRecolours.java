@@ -60,7 +60,7 @@
 
 import java.util.*;
 
-public class minBridgeOps{
+public class MinumumRecolours{
     public static void main(String[] args){
         Scanner s = new Scanner(System.in);
         String str = s.next();
