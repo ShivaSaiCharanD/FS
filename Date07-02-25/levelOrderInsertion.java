@@ -47,61 +47,69 @@
 
 import java.util.*;
 
-class BinaryTree{
-    int data;
-    BinaryTree left;
-    BinaryTree right;
-    BinaryTree(int data){
-        this.data = data;
-        this.left = null;
-        this.right = null;
+public class Solution {
+    class Node {
+        int data;
+        Node left, right;
+        Node(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+    
+    class BinaryTree {
+        Node root;
+        BinaryTree(int data) {
+            this.root = new Node(data);
+        }
+        void insert(int val) {
+            if (root == null) {
+                root = new Node(val);
+                return;
+            }
+            Queue<Node> q = new LinkedList<>();
+            q.add(root);
+            while (!q.isEmpty()) {
+                Node temp = q.poll();
+                if (temp.left == null) {
+                    temp.left = new Node(val);
+                    break;
+                } else {
+                    q.add(temp.left);
+                }
+                if (temp.right == null) {
+                    temp.right = new Node(val);
+                    break;
+                } else {
+                    q.add(temp.right);
+                }
+            }
+        }
+
+        void inOrder(Node root) {
+            if (root == null) {
+                return;
+            }
+            inOrder(root.left);
+            System.out.println(root.data + " ");
+            inOrder(root.right);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        int n = s.nextInt();
+        int arr[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = s.nextInt();
+        }
+        Solution solution = new Solution();
+        BinaryTree tree = solution.new BinaryTree(arr[0]);
+        for (int i = 1; i < n; i++) {
+            tree.insert(arr[i]);
+        }
+        tree.inOrder(tree.root);
     }
 }
 
-public class levelOrderInsertion{
-    public static void printInOrder(BinaryTree root){
-        if(root == null){
-            return;
-        }
-        printInOrder(root.left);
-        System.out.print(root.data + " ");
-        printInOrder(root.right);
-    }
-    public static void insertNode(BinaryTree root, int val){
-        Queue<BinaryTree> queue = new LinkedList<>();
-        queue.offer(root);
-        while(!queue.isEmpty()){
-            BinaryTree node = queue.poll();
-            if(node.left == null){
-                node.left = new BinaryTree(val);
-                break;
-            }
-            else{
-                queue.add(node.left);
-            }
-            if(node.right == null){
-                node.right = new BinaryTree(val);
-                break;
-            }
-            else{
-                queue.add(node.right);
-            }
-        }
-    }
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[] arr = new int[n];
-        for(int i = 0;i<n;i++){
-            arr[i] = sc.nextInt();
-        }
-        BinaryTree root = new BinaryTree(arr[0]);
-        for(int i = 1;i<n;i++){
-            if(arr[i] != -1){
-                insertNode(root,arr[i]);
-            }
-        }
-        printInOrder(root);
-        sc.close();
-    }
-}

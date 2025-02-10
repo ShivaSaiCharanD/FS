@@ -47,56 +47,71 @@
 
 import java.util.*;
 
-class BinaryTree{
-    int data;
-    BinaryTree left;
-    BinaryTree right;
-    BinaryTree(int data){
-        this.data = data;
-        this.left = null;
-        this.right = null;
-    }
-}
-public class levelOrderInsertionMissing{
-    public static void insertNode(BinaryTree root, int val){
-        Queue<BinaryTree> queue = new LinkedList<>();
-        queue.offer(root);
-        while(!queue.isEmpty()){
-            BinaryTree node = queue.poll();
-            if(node.data==-1)continue;
-            if(node.left == null ){
-                node.left = new BinaryTree(val);
-                break;
-            }
-            queue.add(node.left);
-            if(node.right == null){
-                node.right = new BinaryTree(val);
-                break;
-            }
-            queue.add(node.right);
+public class Solution{
+    class Node{
+        int data;
+        Node left;
+        Node right;
+        Node(int data){
+            this.data = data;
+            this.left=null;
+            this.right=null;
         }
     }
-    public static void printInOrder(BinaryTree root){
-        if(root == null || root.data == -1){
-            return;
+    
+    class BinaryTree{
+        Node root;
+        BinaryTree(int val){
+            this.root = new Node(val);
         }
-        printInOrder(root.left);
-        System.out.print(root.data + " ");
-        printInOrder(root.right);
+        void insert(int val){
+            if(root==null){
+                root = new Node(val);
+                return;
+            }
+            Queue<Node> q = new LinkedList<>();
+            q.add(root);
+            while(!q.isEmpty()){
+                Node temp = q.poll();
+                if(temp.data==-1){
+                    continue;
+                }
+                if(temp.left==null){
+                    temp.left = new Node(val);
+                    break;
+                }
+                else{
+                    q.add(temp.left);
+                }
+                if(temp.right==null){
+                    temp.right = new Node(val);
+                    break;
+                }
+                else{
+                    q.add(temp.right);
+                }
+            }
+        }
+        void inOrder(Node root){
+            if(root==null){
+                return;
+            }
+            inOrder(root.left);
+            if(root.data!=-1){
+                System.out.print(root.data+" ");
+            }
+            inOrder(root.right);
+        }
     }
+    
     public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        String[] arr = sc.nextLine().split(" ");
-        if(arr.length == 0){
-            sc.close();
-            return ;
+        Scanner s = new Scanner(System.in);
+        String[] arr = s.nextLine().split(" ");
+        Solution solution = new Solution();
+        BinaryTree tree = solution.new BinaryTree(Integer.parseInt(arr[0]));
+        for(int i=1;i<arr.length;i++){
+            tree.insert(Integer.parseInt(arr[i]));
         }
-        BinaryTree root = new BinaryTree(Integer.parseInt(arr[0]));
-        for(int i = 1;i<arr.length;i++){
-            insertNode(root,Integer.parseInt(arr[i]));
-        }
-        
-        printInOrder(root);
-        sc.close();
+        tree.inOrder(tree.root);
     }
 }
