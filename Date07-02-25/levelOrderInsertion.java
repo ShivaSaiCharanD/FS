@@ -47,7 +47,7 @@
 
 import java.util.*;
 
-public class Solution {
+public class levelOrderInsertion{
     class Node {
         int data;
         Node left, right;
@@ -104,7 +104,7 @@ public class Solution {
         for (int i = 0; i < n; i++) {
             arr[i] = s.nextInt();
         }
-        Solution solution = new Solution();
+        levelOrderInsertion solution = new levelOrderInsertion();
         BinaryTree tree = solution.new BinaryTree(arr[0]);
         for (int i = 1; i < n; i++) {
             tree.insert(arr[i]);

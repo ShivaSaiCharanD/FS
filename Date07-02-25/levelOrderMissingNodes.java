@@ -47,7 +47,7 @@
 
 import java.util.*;
 
-public class Solution{
+public class levelOrderMissingNodes{
     class Node{
         int data;
         Node left;
@@ -107,7 +107,7 @@ public class Solution{
     public static void main(String[] args){
         Scanner s = new Scanner(System.in);
         String[] arr = s.nextLine().split(" ");
-        Solution solution = new Solution();
+        levelOrderMissingNodes solution = new levelOrderMissingNodes();
         BinaryTree tree = solution.new BinaryTree(Integer.parseInt(arr[0]));
         for(int i=1;i<arr.length;i++){
             tree.insert(Integer.parseInt(arr[i]));
