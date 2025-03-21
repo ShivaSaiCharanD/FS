@@ -63,7 +63,7 @@
 
 import java.util.*;
 
-public class Solution{
+public class dishesOrder{
     public static void dfs(int i,boolean visited[], Map<Integer,List<Integer>> adjList,Stack<Integer> st){
         if(visited[i]){
             return;
@@ -122,11 +122,13 @@ public class Solution{
         for(int i=0;i<n;i++){
             adjList.put(i,new ArrayList<>());
         }
+        Map<Integer, Integer> inDegree = new HashMap<>();
         for(int i=0;i<m;i++){
             int a = s.nextInt();
             int b = s.nextInt();
             adjList.get(b).add(a);
+            inDegree.put(b, inDegree.getOrDefault(b, 0) + 1);
         }
-        System.out.println(solve(n,adjList));
+        System.out.println(solve(n,adjList,inDegree));
     }
 }
